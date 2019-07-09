@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Mis Tareas
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarSesion()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let task of misTareas">
+      <ion-card>
+        <ion-card-header>
+          <ion-item>
+            {{ task.name }}
+            <ion-chip slot="end" color="tertiary">
+              <ion-label>{{ task.deadline | date }}</ion-label>
+            </ion-chip>
+          </ion-item>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-item lines="none">
+            {{ task.description }}
+              <ion-badge *ngFor="let label of task.labels" slot="end" [color]="randomColor()">{{ label }}</ion-badge>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
